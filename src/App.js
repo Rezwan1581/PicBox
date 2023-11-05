@@ -1,15 +1,14 @@
 import React from 'react';
-import './App.css';
-import ImageGallery from './components/ImageGallery';
-//import styles from './App.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ImageGallery from './ImageGallery';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <ImageGallery />
     </div>
   );
 }
 
 export default App;
+

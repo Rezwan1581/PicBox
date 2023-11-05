@@ -1,0 +1,50 @@
+.image-box {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 20px;
+    width: 100vw;
+    /* Use the full viewport width */
+    height: 100vh;
+    /* Use the full viewport height */
+    align-items: center;
+    justify-content: center;
+    /* Center both horizontally and vertically */
+}
+
+.image-box :first-child {
+    grid-row: span 2;
+    /* Occupies 2 rows */
+    grid-column: span 2;
+    /* Occupies 2 columns */
+}
+
+.sortable-context {
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    /* 12 columns divided into two */
+    grid-gap: 10px;
+    /* Adjust the gap as needed */
+}
+
+.left-panel {
+    grid-column: span 3;
+    /* Span 3 columns for the left panel */
+    padding-left: 9%;
+}
+
+.right-panel {
+    grid-column: span 3;
+    /* Span 3 columns for the right panel */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 15%;
+}
