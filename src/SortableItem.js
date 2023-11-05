@@ -1,91 +1,109 @@
-// import { useSortable } from "@dnd-kit/sortable";
-// import { CSS } from "@dnd-kit/utilities";
+
+
+// import React from 'react';
 // import Card from 'react-bootstrap/Card';
 
-// import './SortableItem.css'; // Import the CSS file
+// import './SortableItem.css';
+// import { useDrag, useDrop } from 'react-dnd';
+// const ItemType = 'CARD';
+// const SortableItem = ({ image, index, isChecked, onCheckboxChange, moveCard, id }) => {
 
-// export function SortableItem(props) {
-//     const { id, image, isChecked, onCheckboxChange } = props;
-//     const {
-//         attributes,
-//         listeners,
-//         setNodeRef,
-//         transform,
-//         transition,
-//         isDragging
-//     } = useSortable({ id: props.id });
+//     const [, ref] = useDrag({
+//         type: ItemType,
+//         item: { index },
+//     });
 
-//     const itemClass = `sortable-item ${isDragging ? 'is-dragging' : ''}`;
+//     const [, drop] = useDrop({
+//         accept: ItemType,
+//         hover: (draggedItem) => {
+//             if (draggedItem.index !== index) {
+//                 moveCard(draggedItem.index, index);
+//                 draggedItem.index = index;
+//             }
+//         },
+//     });
 
-//     const style = {
+
+
+//     /* const style = {
 //         transform: CSS.Transform.toString(transform),
 //         transition
+//     }; */
+
+//     const handleCheckboxChange = (e) => {
+//         console.log(e)
+//         onCheckboxChange(id, e.target.checked);
 //     };
 
+
 //     return (
-//         <div ref={setNodeRef} className={itemClass} style={style} {...attributes} {...listeners} >
-//             <div className={`Card ${props.isChecked ? 'checked' : ''}`}>
-//                 <Card>
-//                     <img src={props.image} alt="something" className="card-image" />
-//                     <input
-//                         type="checkbox"
-//                         className="card-checkbox"
-//                         checked={props.isChecked}
-//                         onChange={() => onCheckboxChange(id)}
-//                     />
-//                 </Card>
-//             </div>
+//         <div ref={(node) => ref(drop(node))} >
+//             {/*  <div className={`Card ${props.isChecked ? 'checked' : ''}`}> */}
+//             <Card>
+//                 <input
+//                     type="checkbox"
+//                     className="card-checkbox"
+//                     checked={isChecked}
+//                     onChange={handleCheckboxChange}
+//                 />
+//                 <img src={image} alt="something" className="card-image" />
+//             </Card>
+//             {/*  </div> */}
 //         </div>
 //     );
 // }
 
+
+// export { SortableItem }
 import React from 'react';
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import Card from 'react-bootstrap/Card';
 
 import './SortableItem.css';
+import { useDrag, useDrop } from 'react-dnd';
 
-export function SortableItem(props) {
-    const { id, image, isChecked, onCheckboxChange } = props;
-    const {
-        attributes,
-        listeners,
-        setNodeRef,
-        transform,
-        transition,
-        isDragging
-    } = useSortable({ id: props.id });
+const ItemType = 'CARD';
 
-    const itemClass = `sortable-item ${isDragging ? 'is-dragging' : ''}`;
+const SortableItem = ({ image, index, isChecked, onCheckboxChange, moveCard, id, isLastItem }) => {
+    const [, ref] = useDrag({
+        type: ItemType,
+        item: { index },
+    });
 
-    const style = {
-        transform: CSS.Transform.toString(transform),
-        transition
-    };
+    const [, drop] = useDrop({
+        accept: ItemType,
+        hover: (draggedItem) => {
+            if (draggedItem.index !== index) {
+                moveCard(draggedItem.index, index);
+                draggedItem.index = index;
+            }
+        },
+    });
 
-    // This handler is separate from Dnd-kit's listeners
-    const handleCheckboxChange = () => {
-        onCheckboxChange(id);
+    const handleCheckboxChange = (e) => {
+        onCheckboxChange(id, e.target.checked);
     };
 
     return (
-        <div ref={setNodeRef} className={itemClass} style={style} {...attributes} {...listeners}>
-            <div className={`Card ${props.isChecked ? 'checked' : ''}`}>
-                <Card>
-                    <img src={props.image} alt="something" className="card-image" />
-                    <input
-                        type="checkbox"
-                        className="card-checkbox"
-                        checked={props.isChecked}
-                        onChange={handleCheckboxChange} // Handle checkbox change independently
-                    />
-                </Card>
-            </div>
+        <div ref={(node) => ref(drop(node))}>
+            <Card>
+                {isLastItem ? (
+                    <img src={image} alt="something" className="card-image" />
+                ) : (
+                    <>
+                        <input
+                            type="checkbox"
+                            className="card-checkbox"
+                            checked={isChecked}
+                            onChange={handleCheckboxChange}
+                        />
+                        <img src={image} alt="something" className="card-image" />
+                    </>
+                )}
+            </Card>
         </div>
     );
-}
+};
 
-
+export { SortableItem };
 
 

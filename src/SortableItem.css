@@ -13,6 +13,7 @@
 
 
 
+
     /* Define a gray overlay with a pseudo-element */
     &::before {
         content: "";
@@ -103,4 +104,14 @@
 
 .sortable-item.is-dragging {
     cursor: grabbing;
+}
+
+.checkbox-placeholder {
+    width: 20px;
+    /* Adjust the width as needed */
+    height: 20px;
+    /* Adjust the height as needed */
+    background: #ccc;
+    /* Adjust the background color as needed */
+    /* You can add additional styles for positioning or borders as needed */
 }
